@@ -1,0 +1,47 @@
+'''
+Autor: Gabriel Danius Fachetti Barbosa
+
+Faça um programa que percorre uma lista com o seguinte formato: 
+[['Brasil', 'Italia', [10, 9]], 
+['Brasil', 'Espanha', [5, 7]], 
+['Italia', 'Espanha', [7,8]]]. 
+
+Essa lista indica o número de faltas que cada time fez em cada jogo. 
+Na lista acima, no jogo entre Brasil e Itália, o Brasil fez 10 faltas e a Itália fez 9.
+
+O programa deve imprimir na tela:
+a) o total de faltas do campeonato
+b) o time que fez mais faltas
+c) na hora que fez menos faltas
+'''
+
+jogos = [['Brasil', 'Italia', [10, 9]],
+        ['Brasil', 'Espanha', [5, 7]],
+        ['Italia', 'Espanha', [7, 8]]]
+
+lista_faltas = []
+lista_times = []
+faltas_totais = 0
+for jogo in jogos:
+  for i in range(2):
+    faltas_totais += jogo[2][i]
+
+    if jogo[i] not in lista_times:
+      lista_times.append(jogo[i])
+      lista_faltas.append(jogo[2][i])
+    else:
+      index = lista_times.index(jogo[i])
+      lista_faltas[index] += jogo[2][i]
+
+mais_faltas = lista_times[0]
+menos_faltas = lista_times[0]
+
+for (time, faltas) in zip (lista_times[1:], lista_faltas[1:]):
+  if faltas > lista_faltas[lista_times.index(mais_faltas)]:
+    mais_faltas = time
+  elif faltas < lista_faltas[lista_times.index(menos_faltas)]:
+    menos_faltas = time
+
+print("O numero de faltas no campeonato foi %d. " % faltas_totais)
+print("o time que mais fez faltas foi %s. " % mais_faltas)
+print("o time que menos fez faltas foi %s. " % mais_faltas)
